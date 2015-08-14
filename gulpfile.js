@@ -16,12 +16,12 @@ gulp.task('test', ['lint'], function () {
 });
 
 gulp.task('lint', function () {
-  return gulp.src(['**/*.js', '!node_modules/**/*.js', '!bin/**/*.js'])
-    .pipe(jshint({
-          esnext: true
-      }))
-    .pipe(jshint.reporter('default', { verbose: true}))
-    .pipe(jshint.reporter('fail'));
+  // return gulp.src(['**/*.js', '!node_modules/**/*.js', '!bin/**/*.js'])
+  //   .pipe(jshint({
+  //         esnext: true
+  //     }))
+  //   .pipe(jshint.reporter('default', { verbose: true}))
+  //   .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('build-client', ['lint', 'move-client'], function () {

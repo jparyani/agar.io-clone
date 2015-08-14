@@ -21,8 +21,8 @@ if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     mobile = true;
 }
 
-function startGame() {
-    playerName = playerNameInput.value.replace(/(<([^>]+)>)/ig, '');
+function startGame(_playerName) {
+    playerName = _playerName;
     document.getElementById('startMenuWrapper').style.maxHeight = '0px';
     document.getElementById('gameAreaWrapper').style.opacity = 1;
     if (!socket) {
@@ -43,6 +43,16 @@ function validNick() {
 
 window.onload = function() {
 
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/playerName', true);
+
+    xhr.onreadystatechange = function(e) {
+      if (this.readyState == 4 && this.status == 200) {
+        startGame(this.responseText);
+      }
+    };
+
+    xhr.send();
     var btn = document.getElementById('startButton'),
         nickErrorText = document.querySelector('#startMenu .input-error');
 
@@ -764,14 +774,14 @@ function gameLoop() {
             }
 
             for (var i = 0; i < enemies.length; i++) {
-                if (enemies[i].mass <= player.mass) 
+                if (enemies[i].mass <= player.mass)
                     drawEnemy(enemies[i]);
             }
 
             drawPlayer();
 
             for (var j = 0; j < enemies.length; j++) {
-                if (enemies[j].mass > player.mass) 
+                if (enemies[j].mass > player.mass)
                     drawEnemy(enemies[j]);
             }
 

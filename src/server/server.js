@@ -35,6 +35,10 @@ var initMassLog = util.log(c.defaultPlayerMass, c.slowBase);
 
 app.use(express.static(__dirname + '/../client'));
 
+app.get("/playerName", function (req, res) {
+    res.status(200).send(decodeURIComponent(req.headers["x-sandstorm-username"]).replace(/\W/g, '_') || "test");
+});
+
 function addFood(toAdd) {
     var radius = util.massToRadius(c.foodMass);
     while (toAdd--) {
